@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## FSD의 주요 개념
 
-## Getting Started
+    1.	Layers(계층):
+    •	App: 애플리케이션의 초기화와 설정을 담당합니다. 글로벌 스타일, 라우팅, 상태 관리 설정 등이 포함됩니다.
+    •	Process: 애플리케이션의 비즈니스 로직을 정의합니다. 사용자 인증, 데이터 가져오기 등 애플리케이션의 전체적인 흐름을 관리하는 로직을 포함합니다.
+    •	Page: 개별 페이지를 정의합니다. 각각의 페이지는 특정 경로와 연결되며, 페이지 내부에서 필요한 레이아웃과 UI 구성 요소를 포함합니다.
+    •	Widget: 여러 페이지에서 재사용할 수 있는 UI 구성 요소를 정의합니다. 예를 들어, 네비게이션 바, 사이드바, 푸터 등이 있습니다.
+    •	Feature: 특정 기능을 담당하는 독립적인 모듈입니다. 예를 들어, 사용자 프로필 관리, 검색 기능 등이 있습니다.
+    •	Entity: 도메인 모델을 정의합니다. 예를 들어, 사용자, 제품, 주문 등의 데이터 모델을 정의합니다.
+    •	Shared: 여러 계층에서 재사용할 수 있는 유틸리티 함수, 스타일, 타입 등을 정의합니다.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    2. Slice(슬라이스):
+    • 각 계층을 수직으로 나누어 특정 도메인이나 기능에 대한 코드를 그룹화합니다. 예를 들어, user 슬라이스는 사용자와 관련된 모든 코드를 포함합니다.
