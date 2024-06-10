@@ -18,6 +18,8 @@ import { formSchema } from "./formSchema";
 import { useLogin } from "@/hooks/useLogin";
 import { User } from "@/entities/auth/model";
 
+import Link from "next/link";
+
 export default function LoginForm() {
   const mutation = useLogin();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,12 +59,28 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Please enter password....!" {...field} />
-                {/* <Input placeholder="Please enter Password....!" {...field} /> */}
+                <Input
+                  type="password"
+                  placeholder="Please enter password....!"
+                  {...field}
+                />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
+        <ul className="flex justify-center">
+          <li className="go-signup">
+            <Link href={"/sign-up"}>아이디 찾기</Link>
+          </li>
+          <li className="go-signup">
+            <Link href={"/sign-up"}>비밀번호 찾기</Link>
+          </li>
+          <li className="go-signup">
+            <Link href={"/sign-up"}>회원가입</Link>
+          </li>
+        </ul>
+
         <Button type="submit" className="w-full" disabled={mutation.isPending}>
           {mutation.isPending ? "로그인 중..." : "로그인"}
         </Button>

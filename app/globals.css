@@ -88,3 +88,25 @@
   /* display: inline-block; */
   vertical-align: top;
 }
+
+.go-signup {
+  position: relative;
+  display: inline-flex;
+  text-decoration: underline;
+  font-size: 12px;
+  margin-right: 16px;
+}
+.go-signup::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 5px;
+  width: 1px;
+  height: 10px;
+  box-sizing: border-box;
+  background: #ccc;
+  padding: 1px 0;
+}
+.go-signup:last-child::after {
+  content: none;
+}

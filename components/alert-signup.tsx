@@ -3,13 +3,11 @@ import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button, buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 
-function AlertLogin({ content }: { content: string }) {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push("/sign-in");
-  };
+import useAlert from "@/hooks/useAlert";
+
+function AlertSignUp({ content }: { content: string }) {
+  const closeAlertHandle = useAlert((state) => state.closeAlert);
 
   return (
     <Alert variant="destructive">
@@ -21,7 +19,7 @@ function AlertLogin({ content }: { content: string }) {
           buttonVariants({ variant: "destructive", size: "lg" }),
           "mt-10 text-center"
         )}
-        onClick={handleClick}
+        onClick={closeAlertHandle}
       >
         확인
       </Button>
@@ -29,4 +27,4 @@ function AlertLogin({ content }: { content: string }) {
   );
 }
 
-export default AlertLogin;
+export default AlertSignUp;

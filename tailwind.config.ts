@@ -1,13 +1,14 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "./features/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,6 +20,17 @@ const config = {
     },
     extend: {
       colors: {
+        ST_primary: "#ffffff", // 메인 컬러
+        ST_accent: "#5d84d9", // 강조 컬러
+        ST_asist: "#ffffff", // 보조 컬러
+        ST_postive: "#9370DB", // 긍정 컬러
+        ST_negative: "#F28858", // 긍정 컬러
+        ST_disable: "#F0F0F0", // 비활성화
+        ST_grayHover1: "#dfe2ea90", // 호버색상
+        ST_grayHover2: "#a4a4a487", // 호버색상
+        ST_placeHolder: "#707070", // placeholder
+
+        ST_white_opacity_10: "#ffffff1a", // 투명도
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +87,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

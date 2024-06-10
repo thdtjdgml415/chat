@@ -36,16 +36,11 @@ const LoginRedirection = () => {
       {isLoading ? (
         <div className="w-full h-screen bg-background flex items-center justify-center">
           <div className="loader loader--style2" title="1">
-            <Image
-              src="/loading.svg"
-              width={100}
-              height={100}
-              alt="로딩중"
-            ></Image>
+            <Image src="/loading.svg" width={100} height={100} alt="로딩중" />
           </div>
         </div>
       ) : token ? null : (
-        <AlertLogin />
+        <AlertLogin content="로그인" />
       )}
     </>
   );
