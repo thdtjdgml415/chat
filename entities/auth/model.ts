@@ -12,3 +12,5 @@ export interface UserInfo {
   birthDate: Date | string;
   email: string;
 }
+
+export type SettingInfo = Omit<UserInfo, "password" | "loginid">;

@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 type Store = {
-  isOpen: boolean;
+  isToggle: boolean;
 
-  toggleSide: () => void;
+  toggleFn: () => void;
 };
 
 const useToggle = create<Store>((set) => ({
-  isOpen: false,
+  isToggle: false,
 
-  toggleSide: () => set((state) => ({ isOpen: !state.isOpen })),
+  toggleFn: () => set((state) => ({ isToggle: !state.isToggle })),
 }));
 
 export default useToggle;

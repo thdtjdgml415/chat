@@ -19,6 +19,11 @@ class AuthService extends Service {
     console.log(data);
     return this.post("/api/member/signup", { data });
   }
+
+  // 정보 수정
+  getUserInfo() {
+    return this.get("/api/member/user");
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
