@@ -1,8 +1,6 @@
 // import { formatDate } from "@/utils/utils";
 // import { MessageProps } from "@/utils/types/chatTypes";
 
-import { MessageProps } from "@/entities/chat/model";
-
 export const ChatMessage = () => {
   return (
     <></>

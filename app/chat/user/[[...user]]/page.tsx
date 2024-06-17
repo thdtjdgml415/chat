@@ -1,14 +1,5 @@
-import UserInfoForm from "@/features/user/user-info/user-form";
+import UserInfoForm from "@/features/user-info-feature/user-form";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Link from "next/link";
 
 export const menuList = [
@@ -19,10 +10,9 @@ export const menuList = [
 ];
 
 export default function Config({ params }: { params: { user: [string] } }) {
-  console.log(params);
   return (
     <div className="lg:flex w-full">
-      <div className="lg:block  min-w-[201px] lg:h-screen bg-[#F0F0F0] text-black text-xl">
+      <div className="lg:block  min-w-[201px] lg:h-screen bg-secondary text-black text-xl">
         <ul className="flex justify-center lg:block">
           {menuList.map((e) => {
             return (

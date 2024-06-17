@@ -1,5 +1,5 @@
 import Service from "../Service";
-import { User, UserInfo } from "./model";
+import { User, UserInfo } from "./auth";
 
 class AuthService extends Service {
   // 로그인 클래스 함수

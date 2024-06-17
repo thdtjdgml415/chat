@@ -1,7 +1,7 @@
 import SignUpForm from "@/features/auth/sign-up/signup-form";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CorpSignUpForm from "@/features/auth/corp-sign-up/corp-signup-form";
+import CorpSignUpForm from "@/features/auth/corp-sign-up/components/corp-signup-form";
 
 export default function Page() {
   return (

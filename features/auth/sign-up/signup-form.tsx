@@ -24,7 +24,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { formSchema } from "@/features/auth/sign-up/formSchema";
 import { cn, formatDate } from "@/lib/utils";
 
-import { UserInfo } from "@/entities/auth/model";
+import { UserInfo } from "@/entities/auth/auth";
 import { useSignUp } from "@/hooks/useSignup";
 import { CalendarIcon } from "lucide-react";
 

@@ -7,7 +7,7 @@ type Store = {
 };
 
 const useToggle = create<Store>((set) => ({
-  isToggle: false,
+  isToggle: true,
 
   toggleFn: () => set((state) => ({ isToggle: !state.isToggle })),
 }));

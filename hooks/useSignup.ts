@@ -1,5 +1,5 @@
 import AuthService from "@/entities/auth/AuthService";
-import { UserInfo } from "@/entities/auth/model";
+import { UserInfo } from "@/entities/auth/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import useStore from "./useAlert";

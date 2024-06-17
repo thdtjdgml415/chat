@@ -22,7 +22,7 @@ import {
 
 import { cn, formatDate } from "@/lib/utils";
 
-import { SettingInfo } from "@/entities/auth/model";
+import { SettingInfo } from "@/entities/auth/auth";
 import { CalendarIcon } from "lucide-react";
 
 import CustomGroupRadio from "@/components/custom-group-Radio";
@@ -31,7 +31,7 @@ import useAlert from "@/hooks/useAlert";
 
 import { formSchema } from "./formSchema";
 import useToggle from "@/hooks/useToggle";
-import { useEffect } from "react";
+
 import axios from "axios";
 
 export default function UserInfoForm() {
@@ -92,7 +92,7 @@ export default function UserInfoForm() {
                       variant={"outline"}
                       className={cn(
                         "w-[280px] justify-start text-left font-normal",
-                        !field && "text-muted-foreground"
+                        !field && "text-muted-foreground text-black"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -122,22 +122,31 @@ export default function UserInfoForm() {
             label="이메일"
             placeholder={"Please enter email....!"}
           />
-          <Button
-            onClick={setToggle}
-            className={cn(buttonVariants({ variant: "destructive" }), "mr-5")}
-          >
-            취소
-          </Button>
-          <Button type="submit" className="">
-            수정완료
-          </Button>
+          <div className="flex">
+            <div className="w-20 h-10 mr-5">
+              <Button
+                onClick={setToggle}
+                className={cn(buttonVariants({ variant: "destructive" }))}
+              >
+                취소
+              </Button>
+            </div>
+
+            <div className="w-20 h-10">
+              <Button type="submit" className="">
+                수정완료
+              </Button>
+            </div>
+          </div>
         </form>
       ) : (
         <form className="space-y-4">
           <p>성별 : 남 </p>
           <p>생일 : 0000-00-00</p>
           <p>이메일 : thdtjdgml415@gamil.com</p>
-          <Button onClick={setToggle}>수정</Button>
+          <div className="w-20 h-10">
+            <Button onClick={setToggle}>수정</Button>
+          </div>
         </form>
       )}
     </Form>

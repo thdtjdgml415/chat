@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { formSchema } from "./formSchema";
 import { useLogin } from "@/hooks/useLogin";
-import { User } from "@/entities/auth/model";
+import { User } from "@/entities/auth/auth";
 
 import Link from "next/link";
 
