@@ -1,12 +1,12 @@
 "use client";
 
-import ToggleListBtn from "@/components/toggle-list-button";
+import ToggleListBtn from "@/share/atom-components/toggle-list-button";
 import useToggle from "@/hooks/useToggle";
 
 export default function ChatRoomBox() {
   const [toggleFn, setIsToggle] = useToggle();
   return (
-    <div className="">
+    <div>
       <ToggleListBtn
         toggleFn={setIsToggle}
         state={toggleFn}

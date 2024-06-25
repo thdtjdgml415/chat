@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/share/ui/button";
 import {
   Form,
   FormControl,
@@ -12,11 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/share/ui/form";
+import { Input } from "@/share/ui/input";
 import { formSchema } from "./formSchema";
 import { useLogin } from "@/hooks/useLogin";
-import { User } from "@/entities/auth/auth";
+import { User } from "@/features/auth/model/auth";
 
 import Link from "next/link";
 
@@ -25,14 +25,15 @@ export default function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
+      loginId: "",
       password: "",
     },
   });
 
   // 2. Define a submit handler.
   const onSubmit = form.handleSubmit(async (data: User) => {
-    mutation.mutate({ id: data.id, password: data.password });
+    console.log("login client data :", data);
+    mutation.mutate({ loginId: data.loginId, password: data.password });
   });
 
   return (
@@ -40,7 +41,7 @@ export default function LoginForm() {
       <form onSubmit={onSubmit} className="space-y-4">
         <FormField
           control={form.control}
-          name="id"
+          name="loginId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>ID</FormLabel>

@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { Button, buttonVariants } from "../../../components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "../../../share/ui/button";
+import { cn } from "@/share/lib/utils";
 import { useRouter } from "next/navigation";
 
 // https://7087-119-196-98-145.ngrok-free.app/api/member/login/google

@@ -4,34 +4,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/share/ui/button";
+import { Calendar } from "@/share/ui/calendar";
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/share/ui/form";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Popover, PopoverContent, PopoverTrigger } from "@/share/ui/popover";
 import { formSchema } from "@/features/auth/sign-up/formSchema";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/share/lib/utils";
 
-import { UserInfo } from "@/entities/auth/auth";
+import { UserInfo } from "@/features/auth/model/auth";
 import { useSignUp } from "@/hooks/useSignup";
 import { CalendarIcon } from "lucide-react";
 
 import AlertSignUp from "@/components/alert-signup";
-import CustomInput from "@/components/custom-input";
+import CustomGroupRadio from "@/share/atom-components/custom-group-Radio";
+import CustomInput from "@/share/atom-components/custom-input";
 import useAlert from "@/hooks/useAlert";
-import CustomGroupRadio from "@/components/custom-group-Radio";
 
 export default function SignUpForm() {
   const mutation = useSignUp();
@@ -40,10 +34,10 @@ export default function SignUpForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      loginid: "",
+      loginId: "",
       password: "",
       name: "",
-      gender: "남",
+      gender: "MAN",
       email: "",
     },
   });
@@ -56,6 +50,7 @@ export default function SignUpForm() {
       ...restData,
       birthDate: formattedBirthDate,
     };
+    console.log("sign-up data : ", formattedData);
     mutation.mutate(formattedData);
   });
 
@@ -64,7 +59,7 @@ export default function SignUpForm() {
       {isOpen && <AlertSignUp content="회원가입" />}
       <form onSubmit={onSubmit} className="space-y-4">
         <CustomInput
-          name="loginid"
+          name="loginId"
           form={form}
           label="ID"
           placeholder={"Please enter id....!"}

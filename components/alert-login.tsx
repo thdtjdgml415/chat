@@ -1,8 +1,8 @@
 import { AlertCircle } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button, buttonVariants } from "./ui/button";
-import { cn } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "@/share/ui/alert";
+import { Button, buttonVariants } from "../share/ui/button";
+import { cn } from "@/share/lib/utils";
 import { useRouter } from "next/navigation";
 
 function AlertLogin({ content }: { content: string }) {

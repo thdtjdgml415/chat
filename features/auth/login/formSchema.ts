@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  id: z.string().min(2, {
+  loginId: z.string().min(2, {
     message: "아이디를 입력해주세요",
   }),
   password: z

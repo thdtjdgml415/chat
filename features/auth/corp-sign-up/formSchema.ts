@@ -38,4 +38,17 @@ export const formSchema = z.object({
     }
   ),
   email: z.string().email({ message: "유효한 이메일 주소를 입력해주세요." }),
+  ceoName: z.string().email({ message: "유효한 이메일 주소를 입력해주세요." }),
+  companyName: z
+    .string()
+    .min(8, {
+      message: "비밀번호는 최소 8자리 이상이어야 합니다.",
+    })
+    .max(20, {
+      message: "비밀번호는 최대 20자리 이하로 입력해주세요!",
+    }),
+  businessId: z.string(),
+  companyCertificateNumber: z
+    .string()
+    .length(20, { message: "최소 20자리의 번호를 입력해주세요" }),
 });

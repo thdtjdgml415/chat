@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/share/lib/utils";
 import React from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";

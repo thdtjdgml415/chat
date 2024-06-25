@@ -1,4 +1,4 @@
-import UserInfoForm from "@/features/user-info-feature/user-form";
+import UserInfoForm from "@/features/myPage/user-form";
 
 import Link from "next/link";
 

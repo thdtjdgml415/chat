@@ -1,13 +1,13 @@
-import { ChatRoom } from "@/features/chat/chat-feature/components/chat-room";
-import { ChatRoomList } from "@/features/chat/chatRoom-feature/components/chatroom-list";
+import { ChatRoom } from "@/widget/chat/chat-room";
+import { ChatRoomList } from "@/widget/chatconfig/chatroom-list";
 
-import UserList from "@/features/user-feature/components/user-list";
+import UserList from "@/features/chat/components/user-list";
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
+} from "@/share/ui/resizable";
 
 export default function Page() {
   return (

@@ -1,7 +1,7 @@
 import SignUpForm from "@/features/auth/sign-up/signup-form";
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CorpSignUpForm from "@/features/auth/corp-sign-up/components/corp-signup-form";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/share/ui/tabs";
+import CorpSignUpForm from "@/features/auth/corp-sign-up/corp-signup-form";
 
 export default function Page() {
   return (
@@ -30,7 +30,7 @@ export default function Page() {
           </Tabs>
         </div>
       </div>
-      <div className="h-full bg-ST_accent hidden md:flex items-center justify-center">
+      <div className="h-full bg-menu hidden md:flex items-center justify-center">
         <Image src="/logo.svg" height={100} width={100} alt="logo" />
       </div>
     </div>

@@ -24,7 +24,7 @@ export default function signIn() {
           <GoogleLogin />
         </div>
       </div>
-      <div className="h-full bg-ST_accent hidden md:flex items-center justify-center">
+      <div className="h-full bg-menu hidden md:flex items-center justify-center">
         <Image src="/logo.svg" height={100} width={100} alt="logo" />
       </div>
     </div>
