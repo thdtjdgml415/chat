@@ -9,7 +9,6 @@ import {
 import { SideHeader } from "./side-header";
 import { SideItem } from "./side-item";
 import useToggle from "@/hooks/useToggleStore";
-import { useParams } from "next/navigation";
 
 const menuItems = [
   { id: 1, label: "친구", link: "/chat", icon: <CommunityIcon /> },

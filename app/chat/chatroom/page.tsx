@@ -1,5 +1,5 @@
-import { ChatRoom } from "@/components/chat-room/chat/chat-room";
-import { ChatRoomList } from "@/features/chatRoom-feature/components/chatroom-list";
+import { ChatRoom } from "@/features/chat/chat-feature/components/chat-room";
+import { ChatRoomList } from "@/features/chat/chatRoom-feature/components/chatroom-list";
 
 import UserList from "@/features/user-feature/components/user-list";
 

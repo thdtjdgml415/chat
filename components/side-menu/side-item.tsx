@@ -26,7 +26,7 @@ export const SideItem: React.FC<listProps> = ({
       <li
         key={items.id}
         className={`${activeMenuWidthState === true ? "w-full" : ""} ${
-          activeMenu === items.id ? "text-accent" : ""
+          activeMenu === items.id ? "text-menu" : ""
         } mb-2 py-2 px-2 rounded-md text-center list-none last:mb-0 font-bold hover:bg-transparent/10`}
         onClick={() => handleMenuClick(items.id)}
       >

@@ -3,12 +3,6 @@ import ToggleListBtn from "@/components/toggle-list-button";
 import useToggle from "@/hooks/useToggle";
 import { ChatRoomItem } from "./chatroom-item";
 
-// id: number;
-// title: string;
-// domain: string;
-// lastMessage: string;
-// date: Date;
-
 const roomData = [
   {
     id: 1,
