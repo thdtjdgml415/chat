@@ -1,37 +1,55 @@
 "use client";
 
-import ToggleListBtn from "@/share/atom-components/toggle-list-button";
+import { Skeleton } from "@/share/ui/skeleton";
+import { useQueryGetChatUserList } from "../hooks/useQueryGetChatUserList";
 import UserItem from "./user-item";
-import useToggle from "@/hooks/useToggle";
 
 const UserList: React.FC = () => {
-  const users = [
-    { id: 1, name: "나", email: "thddsadada", status: true },
-    { id: 2, name: "user1", email: "thddsadada", status: true },
-    { id: 3, name: "user2", email: "thddsadada", status: false },
-    { id: 4, name: "user3", email: "thddsadada", status: true },
-    { id: 5, name: "user4", email: "thddsadada", status: true },
-  ];
-  const [isToggle, setIsToggle] = useToggle();
+  const { data: users, error, isLoading } = useQueryGetChatUserList();
+
+  if (isLoading)
+    return (
+      <div className="flex flex-col space-y-3 my-5">
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+      </div>
+    );
+
+  if (error) return <div>Error: {error.message}</div>;
+  if (!users || users.data.length === 0)
+    return <div className="my-10">유저 목록이 없습니다.</div>;
+
   return (
     <>
-      <ToggleListBtn
-        toggleFn={setIsToggle}
-        state={isToggle}
-        label={"유저 상태"}
-      />
-      {isToggle &&
-        users?.map((user) => {
-          return (
-            <UserItem
-              key={user.id}
-              id={user.id}
-              email={user.email}
-              name={user.name}
-              status={user.status}
-            />
-          );
-        })}
+      {users?.data.map((user) => {
+        const {
+          id,
+          loginid,
+          name,
+          birthDate,
+          gender,
+          email,
+          role,
+          companyCode,
+          state,
+          profile,
+        } = user;
+        return (
+          <UserItem
+            id={id}
+            loginid={loginid}
+            name={name}
+            birthDate={birthDate}
+            gender={gender}
+            email={email}
+            role={role}
+            companyCode={companyCode}
+            state={state}
+            profile={profile}
+          />
+        );
+      })}
     </>
   );
 };

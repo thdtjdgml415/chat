@@ -14,7 +14,7 @@ import { formSchema } from "@/features/auth/corp-sign-up/formSchema";
 import { cn, formatDate } from "@/share/lib/utils";
 
 import { CorpUserInfo } from "@/features/auth/model/auth";
-import { useSignUp } from "@/hooks/useSignup";
+import { useSignUp } from "@/features/auth/hooks/useSignup";
 import { CalendarIcon } from "lucide-react";
 
 import AlertSignUp from "@/components/alert-signup";
@@ -32,7 +32,7 @@ export default function CorpSignUpForm() {
       loginId: "",
       password: "",
       name: "",
-      gender: "남",
+      gender: "MAN",
       email: "",
       ceoName: "",
       companyName: "",
@@ -43,6 +43,7 @@ export default function CorpSignUpForm() {
 
   // 2. Define a submit handler.
   const onSubmit = form.handleSubmit(async (data: CorpUserInfo) => {
+    console.log(data);
     let formattedBirthDate = formatDate(data.birthDate);
     const { birthDate, ...restData } = data;
     const formattedData = {

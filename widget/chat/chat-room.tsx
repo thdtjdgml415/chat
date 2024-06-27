@@ -3,9 +3,7 @@
 import { useRef } from "react";
 import useChatMessage from "../../features/chat/hooks/useChatMessage";
 import useScrollBottom from "../../features/chat/hooks/useScrollBottom";
-import { ChatMessage } from "../../features/chat/components/chat-boloon";
-import { ChatInput } from "../../features/chat/components/chat-input";
-import { PreviewImage } from "../../features/chat/components/prev-image";
+import { ChatInput, ChatMessage, PreviewImage } from "@/features/chat";
 
 export function ChatRoom() {
   const messagesEndRef = useRef<HTMLDivElement>(null);

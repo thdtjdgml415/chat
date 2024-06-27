@@ -18,7 +18,8 @@ class Service {
     this.http.interceptors.request.use(
       (config) => {
         // 토큰을 로컬 스토리지에서 가져옵니다.
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("acess");
+        console.log("token", token);
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -30,6 +31,7 @@ class Service {
 
   protected async get<T>(url: string, params?: any): Promise<T> {
     const response = await this.http.get<T>(url, { params });
+    console.log("response", response);
     return response.data;
   }
 

@@ -19,7 +19,7 @@ import { formSchema } from "@/features/auth/sign-up/formSchema";
 import { cn, formatDate } from "@/share/lib/utils";
 
 import { UserInfo } from "@/features/auth/model/auth";
-import { useSignUp } from "@/hooks/useSignup";
+import { useSignUp } from "@/features/auth/hooks/useSignup";
 import { CalendarIcon } from "lucide-react";
 
 import AlertSignUp from "@/components/alert-signup";

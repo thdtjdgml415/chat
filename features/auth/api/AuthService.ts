@@ -3,7 +3,7 @@ import { SuccessLoginData, User, UserInfo } from "../model/auth";
 
 class AuthService extends Service {
   // 로그인 클래스 함수
-  login({ loginId, password }: User): Promise<SuccessLoginData> {
+  async login({ loginId, password }: User): Promise<SuccessLoginData> {
     return this.post("api/member/login", { loginId, password });
   }
 
@@ -14,10 +14,15 @@ class AuthService extends Service {
   }
 
   // 회원가입 클래스 함수
-  postSignUp(data: UserInfo) {
-    return this.post("api/member/signup", data);
+  async postSignUp<TUserInfo>(data: TUserInfo): Promise<TUserInfo> {
+    try {
+      return await this.post<TUserInfo>("api/member/signup", data);
+      // `post` 메서드가 `AxiosResponse<UserInfo>`를 반환한다고 가정
+    } catch (error) {
+      // Axios 오류를 재던지기
+      throw error;
+    }
   }
-
   // 정보 수정
   getUserInfo() {
     return this.get("/api/member/user");

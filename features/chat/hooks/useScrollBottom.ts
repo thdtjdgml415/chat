@@ -8,7 +8,6 @@ const useScrollBottom = ({
   messagesEndRef: any;
   messages: Message[];
 }) => {
-  console.log(messagesEndRef, messages);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
   };

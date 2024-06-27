@@ -1,12 +1,12 @@
 import Service from "@/share/api/Service";
 import AuthService from "@/features/auth/api/AuthService";
 import { SuccessLoginData, User } from "@/features/auth/model/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 export const useLogin = () => {
   const service = new Service();
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   const mutation = useMutation({
@@ -19,7 +19,7 @@ export const useLogin = () => {
       }
       router.push("/chat/chatroom");
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       console.error("Login failed", error);
     },
   });

@@ -1,7 +1,8 @@
 import { formatDate } from "@/share/lib/utils";
 import { Message } from "../hooks/useChatMessage";
+import React from "react";
 
-export const ChatMessage = ({ messages }: { messages: Message[] }) => {
+const ChatMessage = ({ messages }: { messages: Message[] }) => {
   return (
     <>
       {messages?.map((item: Message) => {
@@ -24,3 +25,4 @@ export const ChatMessage = ({ messages }: { messages: Message[] }) => {
     </>
   );
 };
+export default ChatMessage;

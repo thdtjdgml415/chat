@@ -15,7 +15,7 @@ import {
 } from "@/share/ui/form";
 import { Input } from "@/share/ui/input";
 import { formSchema } from "./formSchema";
-import { useLogin } from "@/hooks/useLogin";
+import { useLogin } from "@/features/auth/hooks/useLogin";
 import { User } from "@/features/auth/model/auth";
 
 import Link from "next/link";

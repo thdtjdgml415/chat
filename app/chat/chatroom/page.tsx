@@ -1,13 +1,13 @@
 import { ChatRoom } from "@/widget/chat/chat-room";
-import { ChatRoomList } from "@/widget/chatconfig/chatroom-list";
 
-import UserList from "@/features/chat/components/user-list";
+import ChatRoomMenu from "@/widget/chatconfig/chatroom-menu";
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/share/ui/resizable";
+import ChatUserList from "@/widget/chatconfig/chatroom-user-menu";
 
 export default function Page() {
   return (
@@ -20,8 +20,8 @@ export default function Page() {
           {/* 설정 및 유저 상태 */}
           <div className="h-screen overflow-auto bg-secondary">
             <div className="px-4 mt-10">
-              <ChatRoomList />
-              <UserList />
+              <ChatRoomMenu />
+              <ChatUserList />
             </div>
           </div>
         </ResizablePanel>

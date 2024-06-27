@@ -8,6 +8,8 @@ const config = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "./features/**/*.{ts,tsx}",
+    "./share/**/*.{ts,tsx}",
+    "./widget/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {

@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
-export function PreviewImage() {
+function PreviewImage() {
   //   const previewImg = useSelector(
   //     (state: RootState) => state.chatReducer.previewUrl
   //   );
@@ -28,3 +27,4 @@ export function PreviewImage() {
     </>
   );
 }
+export default PreviewImage;

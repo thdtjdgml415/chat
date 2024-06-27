@@ -12,7 +12,7 @@ import Stomp from "stompjs";
 import useChatMessage from "../hooks/useChatMessage";
 
 // 채팅 메시지 입력 컴포넌트
-export const ChatInput = () => {
+const ChatInput = () => {
   const [message, setMessage] = useState<string>("");
   const chatMessage = useChatMessage((state) => state.addMessage);
   // const stompClient = Stomp.over(new SockJS("http://localhost:8080/ws"));
@@ -100,3 +100,4 @@ export const ChatInput = () => {
     </form>
   );
 };
+export default ChatInput;

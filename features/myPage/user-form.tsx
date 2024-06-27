@@ -18,17 +18,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/share/ui/popover";
 
 import { cn, formatDate } from "@/share/lib/utils";
 
-import { SettingInfo } from "@/features/auth/model/auth";
 import { CalendarIcon } from "lucide-react";
 
 import CustomGroupRadio from "@/share/atom-components/custom-group-Radio";
 import CustomInput from "@/share/atom-components/custom-input";
-import useAlert from "@/hooks/useAlert";
 
-import { formSchema } from "./formSchema";
 import useToggle from "@/hooks/useToggle";
-
-import axios from "axios";
+import { formSchema } from "./formSchema";
 
 export default function UserInfoForm() {
   const [isModify, setToggle] = useToggle();
