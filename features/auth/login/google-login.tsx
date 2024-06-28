@@ -6,8 +6,6 @@ import { Button, buttonVariants } from "../../../share/ui/button";
 import { cn } from "@/share/lib/utils";
 import { useRouter } from "next/navigation";
 
-// https://7087-119-196-98-145.ngrok-free.app/api/member/login/google
-
 export default function GoogleLogin() {
   const backend = process.env.NEXT_PUBLIC_API_GOOGLE_URL;
 

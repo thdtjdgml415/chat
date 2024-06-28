@@ -6,7 +6,7 @@ import UserItem from "./user-item";
 
 const UserList: React.FC = () => {
   const { data: users, error, isLoading } = useQueryGetChatUserList();
-
+  console.log("chatroom user list ------", users);
   if (isLoading)
     return (
       <div className="flex flex-col space-y-3 my-5">

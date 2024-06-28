@@ -8,7 +8,7 @@ export const useQueryGetChatUserList = () => {
     ChatUserListProps,
     AxiosError
   >({
-    queryKey: ["room"],
+    queryKey: ["chatUser"],
     queryFn: () => ChatService.getChatUserList(),
   });
 

@@ -6,21 +6,21 @@ import { z } from "zod";
 
 import { Button } from "@/share/ui/button";
 import { Calendar } from "@/share/ui/calendar";
-import { Form, FormField, FormItem, FormLabel } from "@/share/ui/form";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/share/ui/popover";
 
 import { formSchema } from "@/features/auth/corp-sign-up/formSchema";
 import { cn, formatDate } from "@/share/lib/utils";
 
-import { CorpUserInfo } from "@/features/auth/model/auth";
 import { useSignUp } from "@/features/auth/hooks/useSignup";
+import { CorpUserInfo } from "@/features/auth/model/auth";
 import { CalendarIcon } from "lucide-react";
 
-import AlertSignUp from "@/components/alert-signup";
+import AlertSignUp from "@/features/auth/sign-up/alert-signup";
+import useAlert from "@/hooks/useAlert";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/share";
 import CustomGroupRadio from "@/share/atom-components/custom-group-Radio";
 import CustomInput from "@/share/atom-components/custom-input";
-import useAlert from "@/hooks/useAlert";
 
 export default function CorpSignUpForm() {
   const mutation = useSignUp();
@@ -34,6 +34,7 @@ export default function CorpSignUpForm() {
       name: "",
       gender: "MAN",
       email: "",
+
       ceoName: "",
       companyName: "",
       businessId: "",
@@ -41,8 +42,7 @@ export default function CorpSignUpForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  const onSubmit = form.handleSubmit(async (data: CorpUserInfo) => {
+  const onSubmit = form.handleSubmit((data: CorpUserInfo) => {
     console.log(data);
     let formattedBirthDate = formatDate(data.birthDate);
     const { birthDate, ...restData } = data;
@@ -74,7 +74,7 @@ export default function CorpSignUpForm() {
         <CustomInput
           name="name"
           form={form}
-          label="대표자 성함"
+          label="이름"
           placeholder={"성함을 입력해주세요!"}
         />
 
@@ -112,10 +112,17 @@ export default function CorpSignUpForm() {
                     />
                   </PopoverContent>
                 </Popover>
+                <FormMessage />
               </FormItem>
             )}
           />
         </div>
+        <CustomInput
+          name="email"
+          form={form}
+          label="이메일"
+          placeholder={"Please enter email....!"}
+        />
         <CustomInput
           name="ceoName"
           form={form}
@@ -141,7 +148,7 @@ export default function CorpSignUpForm() {
           placeholder={"0000-000-0000-000"}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full mt-6">
           회원가입
         </Button>
       </form>

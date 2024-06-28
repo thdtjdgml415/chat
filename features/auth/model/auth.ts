@@ -32,6 +32,7 @@ export interface SuccessLoginData {
       grantType: string;
       refreshToken: string;
     };
+    role: string;
     message: string;
     resultCode: string;
   };

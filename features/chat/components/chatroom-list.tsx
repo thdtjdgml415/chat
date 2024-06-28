@@ -6,7 +6,7 @@ import { ChatRoomItem } from "./chatroom-item";
 
 export const ChatRoomList = () => {
   const { data: roomData, error, isLoading } = useQueryGetChatRoomList();
-
+  console.log("chatroom list ------", roomData);
   if (isLoading)
     return (
       <div className="flex flex-col space-y-3 my-5">

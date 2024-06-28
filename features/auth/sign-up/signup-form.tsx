@@ -6,26 +6,20 @@ import { z } from "zod";
 
 import { Button } from "@/share/ui/button";
 import { Calendar } from "@/share/ui/calendar";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/share/ui/form";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/share/ui/popover";
 import { formSchema } from "@/features/auth/sign-up/formSchema";
 import { cn, formatDate } from "@/share/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@/share/ui/popover";
 
-import { UserInfo } from "@/features/auth/model/auth";
 import { useSignUp } from "@/features/auth/hooks/useSignup";
+import { UserInfo } from "@/features/auth/model/auth";
 import { CalendarIcon } from "lucide-react";
 
-import AlertSignUp from "@/components/alert-signup";
+import AlertSignUp from "@/features/auth/sign-up/alert-signup";
+import useAlert from "@/hooks/useAlert";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/share";
 import CustomGroupRadio from "@/share/atom-components/custom-group-Radio";
 import CustomInput from "@/share/atom-components/custom-input";
-import useAlert from "@/hooks/useAlert";
 
 export default function SignUpForm() {
   const mutation = useSignUp();
@@ -43,7 +37,7 @@ export default function SignUpForm() {
   });
 
   // 2. Define a submit handler.
-  const onSubmit = form.handleSubmit(async (data: UserInfo) => {
+  const onSubmit = form.handleSubmit((data: UserInfo) => {
     let formattedBirthDate = formatDate(data.birthDate);
     const { birthDate, ...restData } = data;
     const formattedData = {

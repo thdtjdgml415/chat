@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/share/ui/form";
-import { Input } from "@/share/ui/input";
+import { Input } from "..";
 
 interface CustomInputProps {
   name: string;

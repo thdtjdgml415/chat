@@ -1,4 +1,4 @@
-import { SideMenu } from "@/components/side-menu/side-menu";
+import { SideMenu } from "@/widget/side-menu/side-menu";
 
 export default function RootLayout({
   children,

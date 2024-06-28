@@ -15,6 +15,7 @@ class AuthService extends Service {
 
   // 회원가입 클래스 함수
   async postSignUp<TUserInfo>(data: TUserInfo): Promise<TUserInfo> {
+    console.log(data);
     try {
       return await this.post<TUserInfo>("api/member/signup", data);
       // `post` 메서드가 `AxiosResponse<UserInfo>`를 반환한다고 가정

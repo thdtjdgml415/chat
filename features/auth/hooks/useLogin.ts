@@ -4,6 +4,7 @@ import { SuccessLoginData, User } from "@/features/auth/model/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
+import { useQueryGetChatRoomList } from "@/features/chat/hooks/useQueryGetChatRoomList";
 
 export const useLogin = () => {
   const service = new Service();
@@ -16,6 +17,7 @@ export const useLogin = () => {
       console.log("suceess login data -", data);
       if (data) {
         service.setAuthToken(data.tokenInfo.accessToken);
+        localStorage.setItem("role", data.role);
       }
       router.push("/chat/chatroom");
     },

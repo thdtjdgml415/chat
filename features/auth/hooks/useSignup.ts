@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import useStore from "../../../hooks/useAlert";
 import { AxiosError } from "axios";
 
-export const useSignUp = () => {
+export const useSignUp = <T>() => {
   const router = useRouter();
   const openAlert = useStore((state) => state.openAlert); // 알림 창을 열기 위한 상태
   const mutation = useMutation({
-    mutationFn: (data: UserInfo | CorpUserInfo) => AuthService.postSignUp(data),
-    onSuccess: (data: UserInfo | CorpUserInfo) => {
+    mutationFn: (data: T) => AuthService.postSignUp<T>(data),
+    onSuccess: (data: T) => {
       console.log("success sign up data -", data);
       router.push("/sign-in");
     },

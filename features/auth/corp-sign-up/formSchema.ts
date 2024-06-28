@@ -1,10 +1,5 @@
 import { z } from "zod";
 
-// loginid: "",
-// password: "",
-// name: "",
-// birthDate: "",
-// email: "",
 export const formSchema = z.object({
   loginId: z.string().min(2, {
     message: "아이디를 입력해주세요",
@@ -39,15 +34,10 @@ export const formSchema = z.object({
   ),
   email: z.string().email({ message: "유효한 이메일 주소를 입력해주세요." }),
   ceoName: z.string(),
-  companyName: z
-    .string()
-    .min(8, {
-      message: "비밀번호는 최소 8자리 이상이어야 합니다.",
-    })
-    .max(20, {
-      message: "비밀번호는 최대 20자리 이하로 입력해주세요!",
-    }),
-  businessId: z.string(),
+  companyName: z.string(),
+  businessId: z.string().min(10, {
+    message: "사업자 등록번호 10자리를 입력해주세요",
+  }),
   companyCertificateNumber: z.string().min(8, {
     message: "기업증명번호는 14자리 이상이어야 합니다.",
   }),

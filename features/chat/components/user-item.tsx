@@ -14,7 +14,10 @@ const UserItem: React.FC<User> = ({
   profile,
 }) => {
   return (
-    <li className="flex items-center text-md rounded-sm text-black hover:bg-black/10 pl-2">
+    <li
+      key={id}
+      className="flex items-center text-md rounded-sm text-black hover:bg-black/10 pl-2"
+    >
       {status ? (
         <span className="w-2 h-2 bg-green-500 rounded-lg mr-5"></span>
       ) : (

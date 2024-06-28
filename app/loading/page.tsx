@@ -1,5 +1,5 @@
 "use client";
-import AlertLogin from "@/components/alert-login";
+import AlertLogin from "@/features/auth/login/alert-login";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

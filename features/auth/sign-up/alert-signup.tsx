@@ -1,7 +1,7 @@
 import { AlertCircle } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/share/ui/alert";
-import { Button, buttonVariants } from "../share/ui/button";
+import { Button, buttonVariants } from "../../../share/ui/button";
 import { cn } from "@/share/lib/utils";
 
 import useAlert from "@/hooks/useAlert";

@@ -21,6 +21,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+      },
       rotate: {
         "90": "90deg",
       },

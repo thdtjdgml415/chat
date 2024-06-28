@@ -13,12 +13,13 @@ import axios from "axios";
 // }
 
 class ChatService extends Service {
+  // 채팅방 리스트
   async getChatRoomList(): Promise<ChatRoomProps> {
     const response = await this.get<ChatRoomProps>("/api/chat/rooms");
     return response;
   }
-
-  async getChatUserList() {
+  // 채팅방 전체 가능한 유저 리스트
+  async getChatUserList(): Promise<ChatUserListProps> {
     const response = await this.get<ChatUserListProps>("/api/member/colleague");
     return response;
   }

@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 class Service {
   protected http: AxiosInstance;
+  protected multi: AxiosInstance;
 
   constructor() {
     this.http = axios.create({
@@ -9,6 +10,16 @@ class Service {
       timeout: 1000,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Credenials": true,
+        "ngrok-skip-browser-warning": true,
+      },
+    });
+
+    this.multi = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+      timeout: 1000,
+      headers: {
+        "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Credenials": true,
         "ngrok-skip-browser-warning": true,
       },
@@ -27,16 +38,40 @@ class Service {
       },
       (error) => Promise.reject(error)
     );
+
+    this.multi.interceptors.request.use(
+      (config) => {
+        // 토큰을 로컬 스토리지에서 가져옵니다.
+        const token = localStorage.getItem("acess");
+        console.log("token", token);
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
   }
 
   protected async get<T>(url: string, params?: any): Promise<T> {
     const response = await this.http.get<T>(url, { params });
-    console.log("response", response);
+    console.log("response get ----", response);
+    return response.data;
+  }
+
+  protected async getMulti<T>(url: string, params?: any): Promise<T> {
+    const response = await this.multi.get<T>(url, { params });
+    console.log("response getMulti ---- ", response);
     return response.data;
   }
 
   protected async post<T>(url: string, data?: any): Promise<T> {
     const response = await this.http.post<T>(url, data);
+    return response.data;
+  }
+
+  protected async put<T>(url: string, data?: T): Promise<T> {
+    const response = await this.multi.put<T>(url, data);
     return response.data;
   }
 
