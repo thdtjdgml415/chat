@@ -1,68 +1,102 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 class Service {
   protected http: AxiosInstance;
   protected multi: AxiosInstance;
+  protected image: AxiosInstance;
 
   constructor() {
-    this.http = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    this.http = this.createInstance(baseURL!, "application/json");
+    this.multi = this.createInstance(baseURL!, "multipart/form-data");
+    this.image = this.createInstance(baseURL!, "multipart/form-data", "blob");
+  }
+
+  private createInstance(
+    baseURL: string,
+    contentType: string,
+    responseType: "json" | "blob" = "json"
+  ): AxiosInstance {
+    const instance = axios.create({
+      baseURL,
       timeout: 1000,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": contentType,
         "Access-Control-Allow-Credenials": true,
-        "ngrok-skip-browser-warning": true,
       },
+      responseType,
     });
 
-    this.multi = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-      timeout: 1000,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Credenials": true,
-        "ngrok-skip-browser-warning": true,
-      },
-    });
-
-    // 요청 인터셉터 추가
-    this.http.interceptors.request.use(
+    instance.interceptors.request.use(
       (config) => {
-        // 토큰을 로컬 스토리지에서 가져옵니다.
-        const token = localStorage.getItem("acess");
-        console.log("token", token);
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        console.log("config ------------", config);
+        const authToken = localStorage.getItem("access");
+        if (authToken) {
+          const newConfig = { ...config };
+          newConfig.headers.Authorization = `Bearer ${authToken}`;
+          return newConfig;
         }
         return config;
       },
-      (error) => Promise.reject(error)
+      (error) => {
+        console.error("instance.interceptors.request.use", error);
+        return Promise.reject(error);
+      }
     );
 
-    this.multi.interceptors.request.use(
-      (config) => {
-        // 토큰을 로컬 스토리지에서 가져옵니다.
-        const token = localStorage.getItem("acess");
-        console.log("token", token);
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+    instance.interceptors.response.use(
+      async (response) => {
+        if (response.status === 404) {
+          console.log("404 페이지로 넘어가야 함!");
         }
-        return config;
+
+        return response;
       },
-      (error) => Promise.reject(error)
+
+      async (error) => {
+        console.log("instance.interceptors.response.use -----", error);
+        if (error.response && error.response.status === 401) {
+          console.log("401 error find");
+          const data = error.response.data;
+          if (data.error === "Unauthorized") {
+            const refresh = localStorage.getItem("refresh");
+            console.log("refresh", refresh);
+            if (refresh) {
+              try {
+                console.log("is refresh?");
+                const response = await axios.get(
+                  `${baseURL}/api/member/reissue-token`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${refresh}`,
+                    },
+                  }
+                );
+                console.log("accessToken", response);
+                // 새 토큰을 localStorage에 저장
+                localStorage.setItem("access", response.data.accessToken);
+              } catch (refreshError) {
+                console.error("Refresh token request failed:", refreshError);
+              }
+            }
+          }
+        }
+        return Promise.reject(error);
+      }
     );
+
+    return instance;
   }
 
   protected async get<T>(url: string, params?: any): Promise<T> {
     const response = await this.http.get<T>(url, { params });
-    console.log("response get ----", response);
     return response.data;
   }
 
-  protected async getMulti<T>(url: string, params?: any): Promise<T> {
-    const response = await this.multi.get<T>(url, { params });
-    console.log("response getMulti ---- ", response);
-    return response.data;
+  protected async getImage(url: string, params?: any) {
+    const response = await this.image.get<Blob>(url, { params });
+    return window.URL.createObjectURL(response.data);
   }
 
   protected async post<T>(url: string, data?: any): Promise<T> {
@@ -76,9 +110,10 @@ class Service {
   }
 
   setAuthToken(token: string) {
-    if (token) {
-      localStorage.setItem("acess", token);
-    }
+    localStorage.setItem("access", token);
+  }
+  setAuthRefreshToken(token: string) {
+    localStorage.setItem("refresh", token);
   }
 }
 

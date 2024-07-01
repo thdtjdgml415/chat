@@ -4,12 +4,16 @@ class ConfigService extends Service {
   // 내 계정 정보 요청
   async getAccountConfigData<T>(): Promise<T> {
     const response: T = await this.get("/api/member/info");
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
     return response;
   }
 
   // 이미지 정보 요청
-  async getAccountImage<T>(): Promise<T> {
-    const response: T = await this.getMulti("/api/member/info/image");
+  async getAccountImage() {
+    const response: string = await this.getImage("/api/member/info/image");
+
     return response;
   }
 

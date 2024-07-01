@@ -4,7 +4,7 @@ export interface MyConfigProps {
   id: number;
 }
 // 승인 대기 리스트
-export interface PermissionProps {
+export interface User {
   birthDate: string;
   companyCode: string;
   email: string;
@@ -17,9 +17,13 @@ export interface PermissionProps {
   state: string;
 }
 
+export interface ResUser {
+  data: User;
+}
+
 // API 전체 응답에 대한 인터페이스
 export interface ApiResponse {
-  data: PermissionProps[];
+  data: User[];
   message: string;
   resultCode: string;
 }

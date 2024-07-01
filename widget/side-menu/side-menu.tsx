@@ -1,27 +1,15 @@
 "use client";
 
-import {
-  ChannelIcon,
-  CommunityIcon,
-  ConfigIcon,
-  ChatIcon,
-} from "@/public/Images/side-menuSvg";
+import { ChatIcon, CommunityIcon } from "@/public/Images/side-menuSvg";
 import { SideHeader } from "./side-header";
 import { SideItem } from "./side-item";
 
-import { Button } from "@/share/ui/button";
-import ConfigDialog from "../mypage/config-dialog";
 import useToggle from "@/hooks/useToggle";
+import ConfigDialog from "../mypage/config-dialog";
 
 const menuItems = [
   { id: 1, label: "친구", link: "/chat", icon: <CommunityIcon /> },
   { id: 2, label: "채팅방", link: "/chat/chatroom", icon: <ChatIcon /> },
-  // {
-  //   id: 3,
-  //   label: "설정",
-  //   link: "/chat/user/accountConfig",
-  //   icon: <ConfigIcon />,
-  // },
 ];
 
 export const SideMenu = () => {

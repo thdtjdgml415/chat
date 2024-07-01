@@ -24,6 +24,15 @@ class AuthService extends Service {
       throw error;
     }
   }
+
+  async getRefresh(data: string) {
+    try {
+      return await this.get("/api/member/reissue-token", data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   // 정보 수정
   getUserInfo() {
     return this.get("/api/member/user");

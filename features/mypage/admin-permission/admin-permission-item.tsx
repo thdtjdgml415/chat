@@ -4,7 +4,7 @@ import { cn } from "@/share/lib/utils";
 import { Button, buttonVariants } from "@/share/ui/button";
 
 import { useMutationPermissionMember } from "../hooks/useMutationPermissionMember";
-import { PermissionProps } from "../model/myConfig";
+import { User } from "../model/myConfig";
 
 export type ActionPorps = {
   id: number;
@@ -23,7 +23,7 @@ export default function AdminPermissionitem({
   role,
   state,
   profile,
-}: PermissionProps) {
+}: User) {
   const mutation = useMutationPermissionMember();
 
   const handleAction = (actionType: string, code: string) => {
@@ -38,20 +38,22 @@ export default function AdminPermissionitem({
   };
 
   return (
-    <li key={id} className="flex items-center justify-between">
-      <p className="mr-10">{name}</p>
-      <Button
-        onClick={() => handleAction("approve", companyCode)}
-        className="mr-5"
-      >
-        승인
-      </Button>
-      <Button
-        onClick={() => handleAction("reject", companyCode)}
-        className={cn(buttonVariants({ variant: "destructive" }))}
-      >
-        거절
-      </Button>
+    <li key={id} className="max-w-80 flex items-center justify-between">
+      <p className="min-w-20 mr-10">{name}</p>
+      <div className="flex max-sm:flex-wrap">
+        <Button
+          onClick={() => handleAction("approve", companyCode)}
+          className="mr-5 max-sm:mb-2"
+        >
+          승인
+        </Button>
+        <Button
+          onClick={() => handleAction("reject", companyCode)}
+          className={cn(buttonVariants({ variant: "destructive" }))}
+        >
+          거절
+        </Button>
+      </div>
     </li>
   );
 }

@@ -17,6 +17,7 @@ export const useLogin = () => {
       console.log("suceess login data -", data);
       if (data) {
         service.setAuthToken(data.tokenInfo.accessToken);
+        service.setAuthRefreshToken(data.tokenInfo.refreshToken);
         localStorage.setItem("role", data.role);
       }
       router.push("/chat/chatroom");

@@ -9,7 +9,6 @@ import { Calendar } from "@/share/ui/calendar";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,13 +27,15 @@ import CustomInput from "@/share/atom-components/custom-input";
 import useToggle from "@/hooks/useToggleStore";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useMutationModifyAccountInfo } from "../hooks/useMutationModifyAccountInfo";
-import { useQueryGetAccountData } from "../hooks/useQueryGetAccountData";
+
 import { formSchema } from "./formSchema";
 
-import ProfileImage from "./profile-Image";
-import Image from "next/image";
+import { UploadIcon } from "@/public/Images/side-menuSvg";
 import { Input } from "@/share";
-import { Profile, UploadIcon } from "@/public/Images/side-menuSvg";
+import ErrorAlert from "@/share/components/error-alert";
+import Image from "next/image";
+import { useQueryGetAccountData } from "../hooks/useQueryAccount";
+import ProfileImage from "./profile-Image";
 // import UploadImage from "./upload-image";
 
 function getImageData(event: ChangeEvent<HTMLInputElement>) {
@@ -70,44 +71,33 @@ export default function UserInfoForm() {
       email: "",
     },
   });
+  const { data, isLoading, error } = useQueryGetAccountData();
 
-  const { data, error, isLoading } = useQueryGetAccountData();
-
-  console.log(data);
   useEffect(() => {
-    // 데이터를 가져와 폼의 기본값 설정
-    // 데이터로 폼의 기본값 설정
-
     if (data) {
-      form.reset({
-        birthDate: formatDated(data.birthDate),
-        companyCode: data.companyCode,
-        loginId: data.loginId,
-        email: data.email,
-        gender: data.gender,
-        id: data.id,
-        name: data.name,
-        profile: data.profile,
-        role: data.role,
-        state: data.state,
-      });
+      form.reset({ ...data, birthDate: formatDated(data.birthDate) });
     }
   }, [data]);
 
-  if (isLoading) return <p>로딩 중...</p>;
-  if (error) return <p>오류 발생: {error.message}</p>;
+  if (isLoading) return <p className=" bg-orange-400">로딩 중...</p>;
+  if (error) return <ErrorAlert error={error} />;
 
-  // const onSubmit = form.handleSubmit(async (data: SettingInfo) => {});
   const onSubmit = form.handleSubmit((data) => {
-    const { birthDate, ...infoData } = data;
+    const formData = new FormData();
+    const { birthDate, profile_image, ...infoData } = data;
 
     const formatedDate = formatDate(birthDate);
+    const format = { birthDate: formatedDate, ...infoData };
+    const reallyData = { password: "12345678abc!", ...format };
+    const modifydata = new Blob([JSON.stringify(reallyData)], {
+      type: "application/json",
+    });
+    formData.append("member", modifydata);
+    if (profile_image) {
+      formData.append("image", profile_image[0]);
+    }
 
-    const formData = { birthDate: formatedDate, ...infoData };
-
-    const reallyData = { password: "12345678abc!", ...formData };
-
-    mutation.mutate(reallyData);
+    mutation.mutate(formData);
   });
   // console.log(formatDate(data.birthDate));
   return (
@@ -127,7 +117,7 @@ export default function UserInfoForm() {
       </div>
       <Form {...form}>
         {isToggle === true ? (
-          <form onSubmit={onSubmit} className="space-y-4">
+          <form onSubmit={onSubmit} className="w-60 space-y-4">
             <FormField
               control={form.control}
               name="profile_image"
@@ -236,7 +226,8 @@ export default function UserInfoForm() {
         ) : (
           <form className="min-w-80 space-y-4">
             <p>성별 : {data?.gender === "MAN" ? "남" : "여"} </p>
-            <p>생일 : {splitDate(data?.birthDate)}</p>
+
+            {data?.birthDate ? <p>생일 : {splitDate(data.birthDate)}</p> : ""}
             <p>이메일 : {data?.email}</p>
             <div className="w-20 h-10">
               <Button onClick={toggleFn}>수정</Button>

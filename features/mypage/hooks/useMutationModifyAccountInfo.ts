@@ -8,13 +8,18 @@ import useToggle from "@/hooks/useToggleStore";
 
 export const useMutationModifyAccountInfo = <T>() => {
   const queryClient = useQueryClient();
-  const { isToggle, toggleFn } = useToggle();
+  const { toggleFn } = useToggle();
 
   const mutation = useMutation({
     mutationFn: (data: T) => ConfigService.putModfyInfo(data),
     onSuccess: (data) => {
       console.log("suceess permission data -", data);
-      queryClient.invalidateQueries({ queryKey: ["configAccount"] });
+      queryClient.invalidateQueries({
+        queryKey: ["configAccount"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["profileImage"],
+      });
       toggleFn();
     },
     onError: (error) => {

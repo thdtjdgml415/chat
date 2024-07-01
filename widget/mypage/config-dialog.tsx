@@ -58,7 +58,7 @@ export default function ConfigDialog({
         </div>
 
         <div className="w-full h-screen overflow-y-auto">
-          <div className="w-1/3 px-10">
+          <div className="px-10">
             {locate === "accountConfig" ? (
               <UserInfoForm />
             ) : locate === "permisson" ? (
