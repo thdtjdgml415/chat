@@ -16,12 +16,12 @@ export interface Room {
 
 // 채팅방 유저 리스트
 export interface ChatUserListProps {
-  data: User[];
+  data: ChatUser[];
 }
 
-export interface User {
+export interface ChatUser {
   id: number;
-  loginid: string;
+  loginId: string;
   name: string;
   birthDate: string;
   gender: string;

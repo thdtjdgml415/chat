@@ -3,69 +3,31 @@
 import { Skeleton } from "@/share/ui/skeleton";
 import { useQueryGetChatUserList } from "../hooks/useQueryGetChatUserList";
 import UserItem from "./user-item";
-
-export const list = [
-  {
-    id: 1,
-    loginid: "dsadasda",
-    name: "dsadasda",
-    birthDate: "dsadasda",
-    gender: "dsadasda",
-    email: "dsadasda",
-    role: "dsadasda",
-    companyCode: "dsadasda",
-    state: "dsadasda",
-    profile: "dsadasda",
-  },
-  {
-    id: 2,
-    loginid: "dsadasda",
-    name: "dsadasda",
-    birthDate: "dsadasda",
-    gender: "dsadasda",
-    email: "dsadasda",
-    role: "dsadasda",
-    companyCode: "dsadasda",
-    state: "dsadasda",
-    profile: "dsadasda",
-  },
-  {
-    id: 3,
-    loginid: "dsadasda",
-    name: "dsadasda",
-    birthDate: "dsadasda",
-    gender: "dsadasda",
-    email: "dsadasda",
-    role: "dsadasda",
-    companyCode: "dsadasda",
-    state: "dsadasda",
-    profile: "dsadasda",
-  },
-];
+import { ChatUser } from "../model/chat";
 
 const UserList: React.FC = () => {
-  // const { data: users, error, isLoading } = useQueryGetChatUserList();
-  // console.log("chatroom user list ------", users);
-  // if (isLoading)
-  //   return (
-  //     <div className="flex flex-col space-y-3 my-5">
-  //       <Skeleton className="h-[30px] w-full rounded-xl" />
-  //       <Skeleton className="h-[30px] w-full rounded-xl" />
-  //       <Skeleton className="h-[30px] w-full rounded-xl" />
-  //     </div>
-  //   );
+  const { data: list, error, isLoading } = useQueryGetChatUserList();
+  console.log("chatroom user list ------", list);
+  if (isLoading)
+    return (
+      <div className="flex flex-col space-y-3 my-5">
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+        <Skeleton className="h-[30px] w-full rounded-xl" />
+      </div>
+    );
 
-  // if (error) return <div>Error: {error.message}</div>;
-  // if (!users || users.data.length === 0)
-  //   return <div className="my-10">유저 목록이 없습니다.</div>;
-
+  if (error) return <div>Error: {error.message}</div>;
+  if (!list || list.length === 0)
+    return <div className="my-10">유저 목록이 없습니다.</div>;
+  console.log(list);
   return (
     <>
       {/* {users?.data.map((user) => { */}
-      {list.map((user) => {
+      {list.map((user: ChatUser) => {
         const {
           id,
-          loginid,
+          loginId,
           name,
           birthDate,
           gender,
@@ -77,8 +39,9 @@ const UserList: React.FC = () => {
         } = user;
         return (
           <UserItem
+            key={id}
             id={id}
-            loginid={loginid}
+            loginId={loginId}
             name={name}
             birthDate={birthDate}
             gender={gender}

@@ -1,5 +1,7 @@
+import axios, { AxiosResponse } from "axios";
 import Service from "../../../share/api/Service";
 import { SuccessLoginData, User, UserInfo } from "../model/auth";
+import { useRouter } from "next/navigation";
 
 class AuthService extends Service {
   // 로그인 클래스 함수
@@ -31,6 +33,10 @@ class AuthService extends Service {
     } catch (error) {
       throw error;
     }
+  }
+  // "api/member/logout"
+  getOut() {
+    return this.getLogOut("api/member/logout");
   }
 
   // 정보 수정

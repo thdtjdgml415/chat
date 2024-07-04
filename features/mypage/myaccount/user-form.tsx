@@ -57,6 +57,7 @@ export default function UserInfoForm() {
   const { isToggle, toggleFn } = useToggle();
   const [preview, setPreview] = useState("");
   const mutation = useMutationModifyAccountInfo();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,6 +72,7 @@ export default function UserInfoForm() {
       email: "",
     },
   });
+
   const { data, isLoading, error } = useQueryGetAccountData();
 
   useEffect(() => {

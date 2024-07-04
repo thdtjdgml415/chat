@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import ConfigService from "../api/ConfigService";
 
 function useCustomQuery<T>(
   queryKey: string[],

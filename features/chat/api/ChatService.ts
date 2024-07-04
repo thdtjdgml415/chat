@@ -1,5 +1,5 @@
 import Service from "@/share/api/Service";
-import { ChatRoomProps, ChatUserListProps, Room, User } from "../model/chat";
+import { ChatRoomProps, ChatUserListProps, Room } from "../model/chat";
 import axios from "axios";
 
 // process.env.NEXT_PUBLIC_API_BASE_URL + "/api/chat/rooms",

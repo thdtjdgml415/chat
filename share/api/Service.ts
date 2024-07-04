@@ -4,6 +4,7 @@ class Service {
   protected http: AxiosInstance;
   protected multi: AxiosInstance;
   protected image: AxiosInstance;
+  protected logOut: AxiosInstance;
 
   constructor() {
     const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -11,6 +12,7 @@ class Service {
     this.http = this.createInstance(baseURL!, "application/json");
     this.multi = this.createInstance(baseURL!, "multipart/form-data");
     this.image = this.createInstance(baseURL!, "multipart/form-data", "blob");
+    this.logOut = this.createInstance(baseURL!, "");
   }
 
   private createInstance(
@@ -20,7 +22,7 @@ class Service {
   ): AxiosInstance {
     const instance = axios.create({
       baseURL,
-      timeout: 1000,
+      timeout: 5000,
       headers: {
         "Content-Type": contentType,
         "Access-Control-Allow-Credenials": true,
@@ -30,7 +32,7 @@ class Service {
 
     instance.interceptors.request.use(
       (config) => {
-        console.log("config ------------", config);
+        console.log("endpoint 요청시 확인 -------", config);
         const authToken = localStorage.getItem("access");
         if (authToken) {
           const newConfig = { ...config };
@@ -40,7 +42,7 @@ class Service {
         return config;
       },
       (error) => {
-        console.error("instance.interceptors.request.use", error);
+        console.error("endpoint 요청 에러발생 -------", error);
         return Promise.reject(error);
       }
     );
@@ -55,27 +57,35 @@ class Service {
       },
 
       async (error) => {
-        console.log("instance.interceptors.response.use -----", error);
+        console.log("인터셉터 에러 스냅샷 ------------ ", error);
         if (error.response && error.response.status === 401) {
           console.log("401 error find");
           const data = error.response.data;
           if (data.error === "Unauthorized") {
             const refresh = localStorage.getItem("refresh");
-            console.log("refresh", refresh);
+            console.log("refresh 존재하는지? ===========", refresh);
             if (refresh) {
               try {
-                console.log("is refresh?");
                 const response = await axios.get(
-                  `${baseURL}/api/member/reissue-token`,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${refresh}`,
-                    },
-                  }
+                  `${baseURL}api/member/reissue-token`, // Ensure URL is correctly formatted
+                  { headers: { Refresh: refresh } }
                 );
-                console.log("accessToken", response);
-                // 새 토큰을 localStorage에 저장
-                localStorage.setItem("access", response.data.accessToken);
+                console.log("${baseURL} ", response);
+                if (response.status === 200) {
+                  // localStorage.removeItem("refresh");
+                  // localStorage.removeItem("access");
+                  // 새 토큰을 localStorage에 저장
+                  console.log("토큰 지우고");
+                  localStorage.setItem(
+                    "access",
+                    response.data.data.accessToken
+                  );
+                  localStorage.setItem(
+                    "refresh",
+                    response.data.data.refreshToken
+                  );
+                  console.log("토큰 재 셋팅");
+                }
               } catch (refreshError) {
                 console.error("Refresh token request failed:", refreshError);
               }
@@ -91,6 +101,17 @@ class Service {
 
   protected async get<T>(url: string, params?: any): Promise<T> {
     const response = await this.http.get<T>(url, { params });
+    return response.data;
+  }
+
+  protected async getLogOut<T>(url: string, params?: any): Promise<T> {
+    const response = await this.logOut.get<T>(url, {
+      params,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+        Refresh: localStorage.getItem("refresh"),
+      },
+    });
     return response.data;
   }
 

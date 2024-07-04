@@ -4,7 +4,10 @@ import { ChatIcon, CommunityIcon } from "@/public/Images/side-menuSvg";
 import { SideHeader } from "./side-header";
 import { SideItem } from "./side-item";
 
+import AuthService from "@/features/auth/api/AuthService";
 import useToggle from "@/hooks/useToggle";
+import { Button } from "@/share/ui/button";
+import { useRouter } from "next/navigation";
 import ConfigDialog from "../mypage/config-dialog";
 
 const menuItems = [
@@ -13,7 +16,26 @@ const menuItems = [
 ];
 
 export const SideMenu = () => {
+  const route = useRouter();
   const [isToggle, toggleFn] = useToggle();
+
+  const handleLogOut = async () => {
+    try {
+      const response: any = await AuthService.getOut();
+      console.log("LogOut ----------", response);
+
+      if (response.message === "Log Out Successfully") {
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        localStorage.removeItem("role");
+        // 로그아웃 성공 후 처리, 예를 들어 홈페이지로 리다이렉트
+        route.push("/sign-in");
+      }
+    } catch (error) {
+      console.error("Logout failed", error);
+      // 에러 처리, 예를 들어 사용자에게 에러 메시지 표시
+    }
+  };
 
   return (
     <header
@@ -42,6 +64,9 @@ export const SideMenu = () => {
       <div className="w-full">
         <ConfigDialog onOpenChange={toggleFn} />
       </div>
+      <Button onClick={() => handleLogOut()} className="bg-destructive">
+        로그아웃
+      </Button>
     </header>
   );
 };

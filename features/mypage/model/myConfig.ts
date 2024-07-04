@@ -4,7 +4,7 @@ export interface MyConfigProps {
   id: number;
 }
 // 승인 대기 리스트
-export interface User {
+export interface UserConfig {
   birthDate: string;
   companyCode: string;
   email: string;
@@ -18,12 +18,12 @@ export interface User {
 }
 
 export interface ResUser {
-  data: User;
+  data: UserConfig;
 }
 
 // API 전체 응답에 대한 인터페이스
 export interface ApiResponse {
-  data: User[];
+  data: UserConfig[];
   message: string;
   resultCode: string;
 }

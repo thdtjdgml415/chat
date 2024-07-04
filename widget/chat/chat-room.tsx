@@ -18,7 +18,7 @@ export function ChatRoom() {
           <div ref={messagesEndRef} />
         </div>
 
-        <PreviewImage />
+        {/* <PreviewImage /> */}
       </div>
 
       <div className="w-full">

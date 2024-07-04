@@ -1,16 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import ChatService from "../api/ChatService";
-import { ChatUserListProps, User } from "../model/chat";
+import useCustomQuery from "../../../share/hooks/useCustomQuery";
 
 export const useQueryGetChatUserList = () => {
-  const { data, error, isPending, isLoading } = useQuery<
-    ChatUserListProps,
-    AxiosError
-  >({
-    queryKey: ["chatUser"],
-    queryFn: () => ChatService.getChatUserList(),
-  });
-
-  return { data, error, isPending, isLoading };
+  return useCustomQuery(
+    ["chatUser"],
+    () => ChatService.getChatUserList(),
+    (res) => res.data
+  );
 };

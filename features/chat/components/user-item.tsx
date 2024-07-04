@@ -1,8 +1,9 @@
 import React from "react";
-import { User } from "../model/chat";
+import { ChatUser } from "../model/chat";
 
 import { CalendarDays } from "lucide-react";
 
+import { formatDate, splitDate } from "@/share/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/share/ui/avatar";
 import { Button } from "@/share/ui/button";
 import {
@@ -10,11 +11,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/share/ui/hover-card";
-import { formatDate } from "@/share/lib/utils";
 
-const UserItem: React.FC<User> = ({
+const UserItem: React.FC<ChatUser> = ({
   id,
-  loginid,
+  loginId,
   name,
   birthDate,
   gender,
@@ -46,13 +46,13 @@ const UserItem: React.FC<User> = ({
             <AvatarFallback>VC</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold">@{loginid}</h4>
+            <h4 className="text-sm font-semibold">@{loginId}</h4>
             <p className="text-sm">{profile}</p>
             <p>{email}</p>
             <div className="flex items-center pt-2">
               <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
               <span className="text-xs text-muted-foreground">
-                {formatDate(birthDate)}
+                {splitDate(birthDate)}
               </span>
             </div>
           </div>

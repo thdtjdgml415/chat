@@ -1,6 +1,7 @@
+import AuthService from "@/features/auth/api/AuthService";
 import ConfigService from "../api/ConfigService";
 import { ApiResponse, ResUser, User } from "../model/myConfig";
-import useCustomQuery from "./useCustomQuery";
+import useCustomQuery from "../../../share/hooks/useCustomQuery";
 
 // 계정 정보 불러오는 query
 export const useQueryGetAccountData = () => {
