@@ -23,6 +23,14 @@ class ChatService extends Service {
     const response = await this.get<ChatUserListProps>("/api/member/colleague");
     return response;
   }
+
+  async getChatHistroy(data: string | null) {
+    if (data) {
+      const roomId = { roomId: data };
+      const response = await this.get("/api/chat/history", roomId);
+      return response;
+    }
+  }
 }
 
 export default new ChatService();

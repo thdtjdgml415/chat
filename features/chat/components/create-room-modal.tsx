@@ -13,22 +13,30 @@ import { UserConfig } from "@/features/mypage/model/myConfig";
 import { Badge } from "@/share/ui/badge";
 import { Button } from "@/share/ui/button";
 import { Label } from "@radix-ui/react-label";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserCheckBoxList from "./user-checkBox-list";
-import useWebSocketStore from "@/share/store/useClientStore";
+
+import { Input } from "@/share";
+// import useWebSocket from "@/share/hooks/useWebsocket";
+import { useWebSocketStore } from "@/share/store/useWebsocketStore";
 import { v4 as uuidv4 } from "uuid";
 export interface RoomDataProps {
   creator: string;
   roomType: string;
   participant: string[];
+  roomId: any;
+  title?: string;
 }
 
 export default function CreateRoomModal({}: {}) {
   const { name, roomType, isOpen, setOpen } = useModalStore();
-  const { client, clearClient } = useWebSocketStore();
+
+  const { createChatRoom } = useWebSocketStore();
   const { data, isLoading } = useQueryGetChatUserList();
   const [checkedState, setCheckedState] = useState(new Map());
   const [checkList, setCheckList] = useState<string[]>([]);
+  const [title, setTitle] = useState("");
+  const ref = useRef(null);
 
   const handleCreateRoom = () => {
     const roomUuid = uuidv4();
@@ -36,21 +44,13 @@ export default function CreateRoomModal({}: {}) {
       const roomData: RoomDataProps = {
         creator: "song",
         roomType,
+        title: title,
         participant: checkList,
+        roomId: roomUuid,
       };
-      if (client && client.connected) {
-        console.log("Sending room creation data:", roomData);
-        const result = { ...roomData, roomId: roomUuid };
-        console.log(result);
-        client.publish({
-          destination: "/pub/chat/createRoom/group",
-          body: JSON.stringify(result),
-        });
-      } else {
-        console.log("WebSocket client is not connected.");
-      }
-      // createChatRoom(roomData);
-      setOpen(false);
+
+      createChatRoom(roomData);
+
       setTimeout((open: any) => {
         if (!open) {
           document.body.style.pointerEvents = "";
@@ -88,16 +88,6 @@ export default function CreateRoomModal({}: {}) {
       )
     );
   };
-
-  // useEffect(() => {
-  //   if(client) {
-  //     client.subscribe(`/sub/chat/response/${roomUuid}`, (message) => {
-  //       const response = JSON.parse(message.body);
-  //       console.log("Room creation response:", response);
-  //     });
-  //   }
-
-  // },[isOpen]);
 
   useEffect(() => {
     const newCheckedList: string[] = [];
@@ -137,6 +127,17 @@ export default function CreateRoomModal({}: {}) {
             <DialogTitle className="text-center text-lg mt-5">
               {name}
             </DialogTitle>
+            <Label htmlFor="roomTitle">
+              방 제목
+              <Input
+                aria-label="roomTitle"
+                value={title}
+                ref={ref}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+            </Label>
           </DialogHeader>
           <Label htmlFor="ceateChat">초대할 인원</Label>
           <div className="w-[460px] mb-5 overflow-x-auto">
@@ -158,7 +159,7 @@ export default function CreateRoomModal({}: {}) {
               "로딩중"
             ) : (
               <ul className="w-full h-[300px] overflow-auto">
-                {data.map((user: UserConfig) => {
+                {data?.map((user: UserConfig) => {
                   return (
                     <UserCheckBoxList
                       key={user.id}

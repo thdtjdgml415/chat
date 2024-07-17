@@ -4,7 +4,7 @@ import CreateRoomModal from "@/features/chat/components/create-room-modal";
 import useToggle from "@/hooks/useToggle";
 import ToggleListBtn from "@/share/atom-components/toggle-list-button";
 import CustomDropdownMenu from "@/share/components/custom-dropdown-menu";
-import { ChatRoomList } from "../../features/chat/components/chatroom-list";
+import { ChatRoomList } from "./chatroom-list";
 
 export interface createRoomListProps {
   id: number;

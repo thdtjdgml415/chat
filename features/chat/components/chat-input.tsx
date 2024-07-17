@@ -3,18 +3,30 @@
 import { useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 
-import { Input } from "@/share/ui/input";
 import { cn } from "@/share/lib/utils";
+import { Input } from "@/share/ui/input";
 
 // import { useStompClient } from "../hooks/useStompClient";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
-import useChatMessage from "../hooks/useChatMessage";
+
+// import useChatMessage from "../hooks/useChatMessage";
 
 // 채팅 메시지 입력 컴포넌트
-const ChatInput = () => {
+const ChatInput = ({
+  roomId,
+  sendChatMessage,
+  subscribeToRoom,
+  unsubscribeFromRoom,
+}: {
+  roomId: string;
+  sendChatMessage: any;
+  subscribeToRoom: any;
+  unsubscribeFromRoom: any;
+}) => {
   const [message, setMessage] = useState<string>("");
-  const chatMessage = useChatMessage((state) => state.addMessage);
+
+  // const { sendChatMessage, subMessageSocket } = useWebSocket();
+
+  // const chatMessage = useChatMessage((state) => state.addMessage);
   // const stompClient = Stomp.over(new SockJS("http://localhost:8080/ws"));
 
   // useStompClient();
@@ -36,22 +48,15 @@ const ChatInput = () => {
   const submitSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // if (message.trim()) {
-    //   stompClient.send(
-    //     "/app/send",
-    //     {},
-    //     JSON.stringify({ text: message, timestamp: new Date().toISOString() })
-    //   );
-    //   setMessage("");
-    // }
-
     if (message.trim()) {
-      const messageData = {
-        text: message,
-        timestamp: new Date().toISOString(),
+      const chatMessageData = {
+        content: message,
+        sender: "song",
+        roomId: roomId,
+        type: "CHAT",
       };
 
-      chatMessage(messageData);
+      sendChatMessage(chatMessageData);
 
       setMessage("");
     }
