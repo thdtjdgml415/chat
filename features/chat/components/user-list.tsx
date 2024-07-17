@@ -7,7 +7,7 @@ import { ChatUser } from "../model/chat";
 
 const UserList: React.FC = () => {
   const { data: list, error, isLoading } = useQueryGetChatUserList();
-  console.log("chatroom user list ------", list);
+
   if (isLoading)
     return (
       <div className="flex flex-col space-y-3 my-5">
@@ -20,7 +20,7 @@ const UserList: React.FC = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!list || list.length === 0)
     return <div className="my-10">유저 목록이 없습니다.</div>;
-  console.log(list);
+
   return (
     <>
       {/* {users?.data.map((user) => { */}
@@ -36,6 +36,8 @@ const UserList: React.FC = () => {
           companyCode,
           state,
           profile,
+          profileImage,
+          isConnected,
         } = user;
         return (
           <UserItem
@@ -50,6 +52,8 @@ const UserList: React.FC = () => {
             companyCode={companyCode}
             state={state}
             profile={profile}
+            profileImage={profileImage}
+            isConnected={isConnected}
           />
         );
       })}

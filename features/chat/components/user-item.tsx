@@ -23,6 +23,8 @@ const UserItem: React.FC<ChatUser> = ({
   companyCode,
   state,
   profile,
+  profileImage,
+  isConnected,
 }) => {
   return (
     <HoverCard>
@@ -30,7 +32,7 @@ const UserItem: React.FC<ChatUser> = ({
         key={id}
         className="flex items-center text-md rounded-sm text-black hover:bg-black/10 pl-2"
       >
-        {state ? (
+        {isConnected ? (
           <span className="w-2 h-2 bg-green-500 rounded-lg mr-5"></span>
         ) : (
           <span className="w-2 h-2 bg-red-500 rounded-lg mr-5"></span>
@@ -42,7 +44,7 @@ const UserItem: React.FC<ChatUser> = ({
       <HoverCardContent className="w-30">
         <div className="flex justify-between space-x-4">
           <Avatar>
-            <AvatarImage src="https://github.com/vercel.png" />
+            <AvatarImage src={`${profileImage}`} />
             <AvatarFallback>VC</AvatarFallback>
           </Avatar>
           <div className="space-y-1">

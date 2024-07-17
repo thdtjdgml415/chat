@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-query";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import useWebSocket from "../hooks/useWebsocket";
 
 export default function ReactQueryProviders({
   children,
@@ -24,7 +23,6 @@ export default function ReactQueryProviders({
         },
       })
   );
-  useWebSocket();
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -6,12 +6,14 @@ export interface ChatRoomProps {
 }
 
 export interface Room {
-  roomId: number;
+  roomId: string;
   title: string;
   roomType: string;
   loginId: string;
   lastMessage: string;
   unreadMsgNumber: number;
+  currentRoomId: any;
+  setRoomId: any;
 }
 
 // 채팅방 유저 리스트
@@ -30,4 +32,6 @@ export interface ChatUser {
   companyCode?: string;
   state: string;
   profile: string;
+  profileImage: string;
+  isConnected: boolean;
 }

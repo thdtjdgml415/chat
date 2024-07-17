@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/share/ui/dropdown-menu";
-import { createRoomListProps } from "@/widget/chat-config/chatroom-menu";
+import { createRoomListProps } from "@/features/chat/components/chatroom-menu";
 
 import { CiMenuKebab } from "react-icons/ci";
 

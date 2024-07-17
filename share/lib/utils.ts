@@ -45,3 +45,20 @@ export function splitDate(dateString: string) {
   let day = dateString.substring(6, 8);
   return `${year}-${month}-${day}`;
 }
+
+export function formatDateKor(input: string) {
+  const date = new Date(input);
+  return date.toLocaleDateString("ko-KO", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+}
+
+// export const formatDateKo = (dateString) => {
+//   const date = new Date(dateString);
+//   return format(date, "yyyy-MM-dd HH:mm:ss", { locale: ko });
+// };

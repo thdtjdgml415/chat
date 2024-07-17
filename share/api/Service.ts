@@ -32,7 +32,6 @@ class Service {
 
     instance.interceptors.request.use(
       (config) => {
-        console.log("endpoint 요청시 확인 -------", config);
         const authToken = localStorage.getItem("access");
         if (authToken) {
           const newConfig = { ...config };

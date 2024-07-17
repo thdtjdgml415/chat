@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className} overflow-hidden`}>
         <ReactQueryProviders>{children}</ReactQueryProviders>
       </body>
     </html>

@@ -1,5 +1,5 @@
-import ChatRoomMenu from "./chatroom-menu";
-import ChatUserList from "./chatroom-user-menu";
+import ChatRoomMenu from "../../features/chat/components/chatroom-menu";
+import ChatUserList from "../../features/chat/components/chatroom-user-menu";
 
 export default function ConfigChatRoomSide() {
   return (
