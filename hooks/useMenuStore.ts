@@ -2,14 +2,14 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface MenuState {
-  activeMenu: number;
-  setActiveMenu: (menu: number) => void;
+  activeMenu: string;
+  setActiveMenu: (menu: string) => void;
 }
 
 const useMenuStore = create(
   persist<MenuState>(
     (set) => ({
-      activeMenu: 1,
+      activeMenu: "/chat/chatroom",
       setActiveMenu: (menu) => set({ activeMenu: menu }),
     }),
     {

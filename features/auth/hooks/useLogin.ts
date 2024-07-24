@@ -1,10 +1,9 @@
-import Service from "@/share/api/Service";
 import AuthService from "@/features/auth/api/AuthService";
 import { SuccessLoginData, User } from "@/features/auth/model/auth";
+import Service from "@/share/api/Service";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-import { useQueryGetChatRoomList } from "@/features/chat/hooks/useQueryGetChatRoomList";
+import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const service = new Service();
@@ -19,8 +18,8 @@ export const useLogin = () => {
         service.setAuthToken(data.tokenInfo.accessToken);
         service.setAuthRefreshToken(data.tokenInfo.refreshToken);
         localStorage.setItem("role", data.role);
+        router.push("/chat/chatroom");
       }
-      router.push("/chat/chatroom");
     },
     onError: (error: AxiosError) => {
       console.error("Login failed", error);

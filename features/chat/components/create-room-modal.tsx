@@ -121,7 +121,7 @@ export default function CreateRoomModal({}: {}) {
         }, 500);
       }}
     >
-      <DialogContent className="w-[500px] h-[530px] rounded-md">
+      <DialogContent className="w-[500px] h-[600px] rounded-md">
         <div className="box-border px-5">
           <DialogHeader>
             <DialogTitle className="text-center text-lg mt-5">

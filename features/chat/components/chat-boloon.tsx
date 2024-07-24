@@ -3,43 +3,33 @@ import { formatDateKor } from "@/share/lib/utils";
 
 import { useEffect } from "react";
 
-import { MessageDataProps } from "@/share/store/useMessageStore";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import ChatService from "../api/ChatService";
+import { MessageDataProps } from "../model/chat";
 
 const ChatMessage = ({
-  messages,
-  addMessage,
   roomId,
-  subscribeToRoom,
-  unsubscribeFromRoom,
-}: any) => {
+  setMessages,
+  messages,
+}: {
+  roomId: string;
+  setMessages: (messages: MessageDataProps[]) => void;
+  messages: MessageDataProps[];
+}) => {
   const { data: chatHistory, isLoading: chatHistoryLoading } = useQuery({
     queryKey: ["chatHistory", roomId],
     queryFn: () => ChatService.getChatHistroy(roomId),
     select: (data: any) => data.data,
     enabled: !!roomId,
+    staleTime: 5000,
   });
 
   useEffect(() => {
-    if (roomId) {
-      console.log("채팅 입장 " + roomId);
-      subscribeToRoom(roomId);
-      return () => {
-        console.log("채팅나감" + roomId);
-        unsubscribeFromRoom(roomId);
-      };
-    }
-  }, [chatHistory]);
-
-  useEffect(() => {
     if (chatHistory) {
-      chatHistory?.forEach((e: any) => {
-        addMessage(e);
-      });
+      setMessages(chatHistory);
     }
-  }, [chatHistory, roomId]);
+  }, [chatHistory, setMessages]);
 
   if (chatHistoryLoading) return <div>로딩중</div>;
   if (!chatHistory) return <div>메세지가 존재하지 않습니다.</div>;
@@ -48,7 +38,7 @@ const ChatMessage = ({
     <>
       {messages?.map((item: MessageDataProps) => {
         return (
-          <div key={uuidv4()} className="p-3 hover:bg-secondary">
+          <div key={uuidv4()} className="p-3 hover:bg-[#00000010]">
             {item.type === "JOIN" ? (
               `${item.sender} 님께서 입장하셨습니다.`
             ) : item.type === "INACTIVE" ? (

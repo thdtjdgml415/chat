@@ -3,8 +3,8 @@ import { ChatUser } from "../model/chat";
 
 import { CalendarDays } from "lucide-react";
 
-import { formatDate, splitDate } from "@/share/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/share/ui/avatar";
+import { splitDate } from "@/share/lib/utils";
+import { Avatar, AvatarFallback } from "@/share/ui/avatar";
 import { Button } from "@/share/ui/button";
 import {
   HoverCard,
@@ -44,7 +44,7 @@ const UserItem: React.FC<ChatUser> = ({
       <HoverCardContent className="w-30">
         <div className="flex justify-between space-x-4">
           <Avatar>
-            <AvatarImage src={`${profileImage}`} />
+            {/* <AvatarImage src={`${profileImage}`} /> */}
             <AvatarFallback>VC</AvatarFallback>
           </Avatar>
           <div className="space-y-1">

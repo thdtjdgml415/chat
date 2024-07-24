@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 class Service {
   protected http: AxiosInstance;
@@ -71,8 +71,6 @@ class Service {
                 );
                 console.log("${baseURL} ", response);
                 if (response.status === 200) {
-                  // localStorage.removeItem("refresh");
-                  // localStorage.removeItem("access");
                   // 새 토큰을 localStorage에 저장
                   console.log("토큰 지우고");
                   localStorage.setItem(

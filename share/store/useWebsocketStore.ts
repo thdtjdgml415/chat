@@ -1,25 +1,31 @@
 import { RoomDataProps } from "@/features/chat/components/create-room-modal";
-import { Client, Message } from "@stomp/stompjs";
+import { Client, StompSubscription } from "@stomp/stompjs";
+
+import { MessageDataProps } from "@/features/chat/model/chat";
 import { create } from "zustand";
+import useMessageStore from "./useMessageStore";
 
 interface useWebsocketStoreProps {
   client: Client | null;
-  messages: Message[];
+
+  currentRoomId: string | null;
+  currentSubscription: StompSubscription | null;
 
   connect: () => void;
   disconnect: () => void;
   subscribePublic: () => void;
   subscribeToRoom: (roomId: string) => void;
-  unsubscribeFromRoom: (roomId: string) => void;
+  unsubscribeFromRoom: () => void;
   sendMessage: (roomId: string, data: string) => void;
   createChatRoom: (data: RoomDataProps) => void;
-  // 기타 필요한 메서드 또는 속성 추가
 }
 
 // WebSocket 스토어 정의
 export const useWebSocketStore = create<useWebsocketStoreProps>((set, get) => ({
   client: null as Client | null,
-  messages: [],
+  currentRoomId: null,
+  currentSubscription: null,
+
   connect: () => {
     const client = new Client({
       brokerURL: `ws://43.203.222.95:8080/ws/chat`,
@@ -29,17 +35,15 @@ export const useWebSocketStore = create<useWebsocketStoreProps>((set, get) => ({
       onConnect: () => {
         console.log("Connected to WebSocket server!");
         set({ client });
-        get().subscribePublic(); // 예시 구독
-        console.log("Connected to WebSocket server!!!!!!!");
+        if (client && client.connected) {
+          get().subscribePublic();
+        }
       },
       onDisconnect: () => {
         console.log("Disconnected from WebSocket server!");
         set({ client: null });
       },
 
-      //   debug: (str) => {
-      //     console.log("STOMP Debug:", str);
-      //   },
       onStompError: (frame) => {
         console.error("Broker reported error:", frame.headers["message"]);
         console.error("Additional details:", frame.body);
@@ -49,8 +53,11 @@ export const useWebSocketStore = create<useWebsocketStoreProps>((set, get) => ({
     client.activate();
   },
   disconnect: () => {
+    get().currentSubscription?.unsubscribe();
     get().client?.deactivate();
+    set({ client: null, currentSubscription: null, currentRoomId: null });
   },
+
   // 일반 통로 구독
   subscribePublic: () => {
     const { client } = get();
@@ -61,29 +68,45 @@ export const useWebSocketStore = create<useWebsocketStoreProps>((set, get) => ({
       });
     }
   },
+
   // 채팅방 구독
   subscribeToRoom: (roomId: string) => {
-    const { client } = get();
-    if (client?.connected) {
-      client.subscribe(`/sub/chat/${roomId}`, (message: any) => {
-        const messageData = JSON.parse(message.body);
-        console.log("Received message for room chat:", messageData);
-        set((state: { messages: any }) => ({
-          messages: [...state.messages, messageData],
-        }));
+    const { client, currentSubscription, currentRoomId } = get();
+    const { addMessage } = useMessageStore.getState();
+    if (roomId === currentRoomId) {
+      return; // 이미 구독 중인 방이면 아무 것도 하지 않음
+    }
+    currentSubscription?.unsubscribe();
+    const newSubscription = client?.subscribe(
+      `/sub/chat/${roomId}`,
+      (message) => {
+        const messageData: MessageDataProps = JSON.parse(message.body);
+        console.log("recive chat sub ------> ", messageData);
+        if (messageData.type === "CHAT") {
+          addMessage(messageData);
+        }
+      }
+    );
+    set({
+      currentRoomId: roomId,
+      currentSubscription: newSubscription,
+    });
+  },
+
+  // 채팅방 구독 해지
+  unsubscribeFromRoom: () => {
+    const { currentSubscription } = get();
+    if (currentSubscription) {
+      currentSubscription.unsubscribe();
+      set({
+        currentSubscription: null,
+        currentRoomId: null,
       });
     }
   },
-  // 채팅방 구독 해지
-  unsubscribeFromRoom: (roomId: string) => {
-    const { client } = get();
-    if (client && client.connected) {
-      client.unsubscribe(`/sub/chat/${roomId}`);
-    }
-  },
+
   // 메세지 전송
   sendMessage: (data) => {
-    console.log(data);
     const { client } = get();
     if (client?.connected) {
       client.publish({
@@ -105,4 +128,6 @@ export const useWebSocketStore = create<useWebsocketStoreProps>((set, get) => ({
       console.log("WebSocket client is not connected.");
     }
   },
+  // 채팅방 나가기
+  leaveChatRoom: (roomId: string) => {},
 }));

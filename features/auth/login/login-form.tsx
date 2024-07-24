@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useLogin } from "@/features/auth/hooks/useLogin";
+import { User } from "@/features/auth/model/auth";
 import { Button } from "@/share/ui/button";
 import {
   Form,
@@ -15,8 +17,6 @@ import {
 } from "@/share/ui/form";
 import { Input } from "@/share/ui/input";
 import { formSchema } from "./formSchema";
-import { useLogin } from "@/features/auth/hooks/useLogin";
-import { User } from "@/features/auth/model/auth";
 
 import Link from "next/link";
 

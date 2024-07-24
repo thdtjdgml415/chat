@@ -7,7 +7,7 @@ import { SideItem } from "./side-item";
 import AuthService from "@/features/auth/api/AuthService";
 import useToggle from "@/hooks/useToggle";
 import { Button } from "@/share/ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ConfigDialog from "../mypage/config-dialog";
 
 const menuItems = [
@@ -16,6 +16,8 @@ const menuItems = [
 ];
 
 export const SideMenu = () => {
+  const path = usePathname();
+  console.log(path);
   const route = useRouter();
   const [isToggle, toggleFn] = useToggle();
 
@@ -41,7 +43,7 @@ export const SideMenu = () => {
     <header
       className={`${
         isToggle ? "min-w-[200px]" : "max-w-[65px]"
-      }  h-screen hidden sm:flex flex-col items-center px-3 bg-ST_primary border-r-2 border-r-[#ccc]`}
+      }  h-screen hidden sm:flex flex-col items-center px-3 bg-ST_primary`}
     >
       <div className="w-full h-9 mx-3 mt-6 mb-4 text-center">
         <div className="w-full flex items-center">
@@ -56,6 +58,7 @@ export const SideMenu = () => {
                 key={index}
                 items={list}
                 activeMenuWidthState={isToggle}
+                path={path}
               />
             );
           })}

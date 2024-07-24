@@ -11,9 +11,9 @@ export const ChatRoomList = () => {
   if (isLoading)
     return (
       <div className="flex flex-col space-y-3 my-5">
-        <Skeleton className="h-[50px] w-full rounded-xl" />
-        <Skeleton className="h-[50px] w-full rounded-xl" />
-        <Skeleton className="h-[50px] w-full rounded-xl" />
+        <Skeleton className="h-[50px] w-[150px] rounded-xl" />
+        <Skeleton className="h-[50px] w-[150px] rounded-xl" />
+        <Skeleton className="h-[50px] w-[150px] rounded-xl" />
       </div>
     );
 

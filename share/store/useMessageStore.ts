@@ -1,13 +1,5 @@
+import { MessageDataProps } from "@/features/chat/model/chat";
 import { create } from "zustand";
-
-export interface MessageDataProps {
-  id: number;
-  content: string;
-  sender: string;
-  roomId: string;
-  type: string;
-  createdDate: string;
-}
 
 interface MessageStore {
   messages: MessageDataProps[];

@@ -1,3 +1,4 @@
+import { createRoomListProps } from "@/features/chat/components/chatroom-menu";
 import useModalStore from "@/hooks/useModalStore";
 import {
   DropdownMenu,
@@ -5,7 +6,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/share/ui/dropdown-menu";
-import { createRoomListProps } from "@/features/chat/components/chatroom-menu";
 
 import { CiMenuKebab } from "react-icons/ci";
 

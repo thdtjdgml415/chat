@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { Message } from "./useChatMessage";
+import { MessageDataProps } from "../model/chat";
 
 const useScrollBottom = ({
   messagesEndRef,
   messages,
 }: {
   messagesEndRef: any;
-  messages: Message[];
+  messages: MessageDataProps[];
 }) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "auto" });

@@ -35,3 +35,12 @@ export interface ChatUser {
   profileImage: string;
   isConnected: boolean;
 }
+// zustand store
+export interface MessageDataProps {
+  id: number;
+  content: string;
+  sender: string;
+  roomId: string;
+  type: string;
+  createdDate: string;
+}

@@ -2,8 +2,8 @@
 
 import { Skeleton } from "@/share/ui/skeleton";
 import { useQueryGetChatUserList } from "../hooks/useQueryGetChatUserList";
-import UserItem from "./user-item";
 import { ChatUser } from "../model/chat";
+import UserItem from "./user-item";
 
 const UserList: React.FC = () => {
   const { data: list, error, isLoading } = useQueryGetChatUserList();
@@ -11,9 +11,9 @@ const UserList: React.FC = () => {
   if (isLoading)
     return (
       <div className="flex flex-col space-y-3 my-5">
-        <Skeleton className="h-[30px] w-full rounded-xl" />
-        <Skeleton className="h-[30px] w-full rounded-xl" />
-        <Skeleton className="h-[30px] w-full rounded-xl" />
+        <Skeleton className="h-[30px] w-[100px] rounded-xl" />
+        <Skeleton className="h-[30px] w-[100px] rounded-xl" />
+        <Skeleton className="h-[30px] w-[100px] rounded-xl" />
       </div>
     );
 

@@ -14,13 +14,9 @@ import { Input } from "@/share/ui/input";
 const ChatInput = ({
   roomId,
   sendChatMessage,
-  subscribeToRoom,
-  unsubscribeFromRoom,
 }: {
   roomId: string;
   sendChatMessage: any;
-  subscribeToRoom: any;
-  unsubscribeFromRoom: any;
 }) => {
   const [message, setMessage] = useState<string>("");
 
@@ -81,7 +77,7 @@ const ChatInput = ({
   return (
     <form
       onSubmit={submitSendMessage}
-      className="relative flex items-center rounded-md pl-2 bg-[#d9d9d933]"
+      className="relative flex items-center rounded-md pl-2 bg-[#d9d9d9a8]"
     >
       <div className="flex">
         {/* 파일첨부 */}
